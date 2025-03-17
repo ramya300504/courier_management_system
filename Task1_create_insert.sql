@@ -154,18 +154,22 @@ CREATE TABLE Payment (
     PaymentID INT PRIMARY KEY,  
     CourierID INT,  
     LocationID INT,  
+    UserID INT,
+    ServiceID VARCHAR(10),
     Amount DECIMAL(10, 2),  
     PaymentDate DATE,
-   FOREIGN KEY (CourierID) REFERENCES Courier(CourierID),  
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (ServiceID) REFERENCES Service(ServiceID),
+    FOREIGN KEY (CourierID) REFERENCES Courier(CourierID),  
     FOREIGN KEY service(LocationID) REFERENCES Location(LocationID)
 );
-INSERT INTO Payment(PaymentID,CourierID,LocationID,Amount,PaymentDate)
+
+INSERT INTO Payment(PaymentID,CourierID,LocationID,UserID,ServiceID,Amount,PaymentDate)
 VALUES
-(501, 1, 1, 150.00, '2025-01-12'),
-(502, 2, 2, 200.00, '2025-02-20'),
-(503, 3, 3, 150.00, '2025-02-25'),
-(504, 4, 4, 3000.00, '2025-03-06'),
-(508, 8, 8, 3200.00, '2024-12-09');
+(501, 1, 1,1001,'S01', 150.00, '2025-01-12'),
+(502, 2, 2,1002,'S02',200.00, '2025-02-20'),
+(503, 3, 3,1003,'S03', 150.00, '2025-02-25'),
+(504, 4, 4,1004,'S04', 3000.00, '2025-03-06'),
+(508, 8, 8,1005,'S05', 3200.00, '2024-12-09');
 
-select * from payment;-
-
+select * from payment;
