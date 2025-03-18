@@ -17,7 +17,7 @@ select * from courier where CourierID=5 and CourierID=6 and DeliveryDate is not 
 select * from courier where status!='Delivered';
 
 -- 7. List all packages that are scheduled for delivery today:
-select * from courier where DeliveryDate='2025-03-18';
+select * from courier where DeliveryDate=curdate();
 
 -- 8. List all packages with a specific status:  
 select * from courier where status='In Transit';
@@ -25,17 +25,16 @@ select * from courier where status='Shipped';
 
 -- 9. Calculate the total number of packages for each courier.  
 SELECT COUNT(*) AS TotalPackages
-FROM Courier;
+FROM Courier 
+group by SenderName;
 
 
 -- 10. Find the average delivery time for each courier  
-alter table courier add column BookingDate Date;
-insert into courier (BookingDate)
-values('2025-02-02'),('2024-12-10'),('2025-01-20'),('2025-03-01'),('2025-02-16'),('2024-12-14'),
-('2025-03-12'),('2025-01-05'),('2025-02-11'),('2024-08-01');
-SELECT CourierID, 
-       AVG(DATEDIFF(DeliveryDate, BookingDate)) AS AvgDeliveryTime
-FROM Courier;
+SELECT c.CourierID, 
+       AVG(DATEDIFF(DeliveryDate, PaymentDate)) AS AvgDeliveryTime
+FROM Courier c 
+join payment p on c.CourierID=p.PaymentID
+group by c.CourierID;
 
 -- 11. List all packages with a specific weight range:  
 select * from courier where Weight between 2.00 and 5.00;
