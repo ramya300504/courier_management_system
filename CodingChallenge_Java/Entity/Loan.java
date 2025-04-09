@@ -2,12 +2,12 @@ package Entity;
 
 public class Loan {
 
-       int loanId;
-         Customer customer;
-        double principalAmount;
-         double interestRate;
-       int loanTerm;
-         String loanStatus;
+       private int loanId;
+       private Customer customer;
+       private double principalAmount;
+       private double interestRate;
+       private int loanTerm;
+       private String loanStatus;
 
         public Loan(){};
         public Loan(int loanId, Customer customer, double principalAmount, double interestRate, int loanTerm, String loanStatus) {
