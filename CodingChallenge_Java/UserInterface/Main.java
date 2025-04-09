@@ -73,8 +73,13 @@ public class Main {
             else if (choice == 2) {
                 System.out.println("To calculate Interest for your Loan Enter Loa Id:");
                 int loanid = sc.nextInt();
-                double interest = service.calculateInterest(loanid);
-                System.out.println("Interest: " + interest);
+                //handles exception
+                try {
+                    double interest = service.calculateInterest(loanid);
+                } catch (InvalidLoanException e) {
+                   System.out.println(e.getMessage());
+                }
+               System.out.println("Interest: " + interest);
             }
             //to get loan statys
             else if (choice == 3) {
@@ -87,9 +92,13 @@ public class Main {
             else if (choice == 4) {
                 System.out.println("Enter Loan ID");
                 int loanid = sc.nextInt();
-                double emi = service.calculateEMI(loanid);
-                System.out.println("EMI for your Loan is " + emi);
-
+                //handles exception
+                try {
+                      double emi = service.calculateEMI(loanid);
+                } catch (InvalidLoanException e) {
+                   System.out.println(e.getMessage());
+                }
+              System.out.println("EMI for your Loan is " + emi);
             }
             //loan repayment
             else if (choice == 5) {
@@ -108,7 +117,11 @@ public class Main {
             else if (choice == 7) {
                 System.out.println("Enter Loan ID");
                 int loanid = sc.nextInt();
-                service.getLoanById(loanid);
+                 try {
+                      service.getLoanById(loanid);
+                } catch (InvalidLoanException e) {
+                   System.out.println(e.getMessage());
+                }
             }
             //to exit
             else if (choice == 8) {
