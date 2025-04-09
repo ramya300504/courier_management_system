@@ -79,7 +79,7 @@ public class ILoanRepositoryImpl implements ILoanRepository{
             System.out.println("Loan ID not found.");
         }
     }
-    public double calculateInterest(int loanId) throws SQLException {
+    public double calculateInterest(int loanId) throws SQLException,InvalidLoanException {
         double interest = 0;
 
         //Fetch loan details
@@ -101,7 +101,7 @@ public class ILoanRepositoryImpl implements ILoanRepository{
         return interest;
     }
 
-    public double calculateEMI(int loanId) throws SQLException {
+    public double calculateEMI(int loanId) throws SQLException,InvalidLoanException {
         double emi = 0;
         // Fetch loan details
         String query = "SELECT principal_amount, interest_rate, loan_term FROM loan WHERE loan_id = ?";
@@ -162,7 +162,7 @@ public class ILoanRepositoryImpl implements ILoanRepository{
         return loanList;
     }
 
-    public void getLoanById(int loanId) throws SQLException {
+    public void getLoanById(int loanId) throws SQLException,InvalidLoanException {
 
         PreparedStatement pst = connection.prepareStatement("SELECT * FROM loan WHERE loan_id = ?");
         ResultSet rs = pst.executeQuery();
