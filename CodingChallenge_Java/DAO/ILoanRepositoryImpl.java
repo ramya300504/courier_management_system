@@ -23,6 +23,7 @@ public class ILoanRepositoryImpl implements ILoanRepository{
             System.out.println("Error establishing database connection: " + e.getMessage());
         }
     }
+    @Override
     public  boolean applyLoan(Loan loan) throws SQLException {
         Scanner sc = new Scanner(System.in);
         boolean applied=false;
@@ -46,6 +47,7 @@ public class ILoanRepositoryImpl implements ILoanRepository{
         }
           return false;
     }
+    @Override
     public void loanStatus(int loanId) throws SQLException {
 
         PreparedStatement pst = connection.prepareStatement("SELECT c.credit_score FROM loan l, customer c WHERE l.customer_id = c.customer_id AND l.loan_id = ?");
@@ -79,6 +81,7 @@ public class ILoanRepositoryImpl implements ILoanRepository{
             System.out.println("Loan ID not found.");
         }
     }
+    @Override
     public double calculateInterest(int loanId) throws SQLException,InvalidLoanException {
         double interest = 0;
 
@@ -100,7 +103,7 @@ public class ILoanRepositoryImpl implements ILoanRepository{
         }
         return interest;
     }
-
+    @Override
     public double calculateEMI(int loanId) throws SQLException,InvalidLoanException {
         double emi = 0;
         // Fetch loan details
@@ -130,7 +133,7 @@ public class ILoanRepositoryImpl implements ILoanRepository{
     }
 
 
-
+    @Override
     public List<Loan> getAllLoan() throws SQLException {
          List<Loan> loanList = new ArrayList<>();
             PreparedStatement pst = connection.prepareStatement("SELECT * FROM loan");
@@ -161,7 +164,7 @@ public class ILoanRepositoryImpl implements ILoanRepository{
 
         return loanList;
     }
-
+    @Override
     public void getLoanById(int loanId) throws SQLException,InvalidLoanException {
 
         PreparedStatement pst = connection.prepareStatement("SELECT * FROM loan WHERE loan_id = ?");
@@ -191,7 +194,7 @@ public class ILoanRepositoryImpl implements ILoanRepository{
         }
 
     }
-
+    @Override
     public void loanRepayment(int loanId, double amount) throws SQLException {
 
         PreparedStatement pst = connection.prepareStatement("SELECT principal_amount, interest_rate, loan_term FROM loan WHERE loan_id = ?");
